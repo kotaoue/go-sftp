@@ -8,7 +8,22 @@ import (
 )
 
 func main() {
-	var conn *ssh.Client
+	host := "localhost"
+	port := "2222"
+	user := "foo"
+	pass := "pass"
+
+	// Create sshClientConfig
+	sshConfig := &ssh.ClientConfig{
+		User: user,
+		Auth: []ssh.AuthMethod{
+			ssh.Password(pass),
+		},
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+	}
+
+	// SSH connect.
+	conn, err := ssh.Dial("tcp", host+":"+port, sshConfig)
 
 	// open an SFTP session over an existing ssh connection.
 	client, err := sftp.NewClient(conn)
