@@ -23,7 +23,7 @@ func Main() error {
 	user := "foo"
 	pass := "pass"
 
-	// Create sshClientConfig
+	fmt.Println("Create sshClientConfig")
 	sshConfig := &ssh.ClientConfig{
 		User: user,
 		Auth: []ssh.AuthMethod{
@@ -32,7 +32,7 @@ func Main() error {
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
 
-	// SSH connect.
+	fmt.Println("SSH connect")
 	addr := fmt.Sprintf("%s:%s", host, port)
 	fmt.Println(addr)
 
@@ -41,14 +41,14 @@ func Main() error {
 		return err
 	}
 
-	// open an SFTP session over an existing ssh connection.
+	fmt.Println("open an SFTP session over an existing ssh connection")
 	client, err := sftp.NewClient(conn)
 	if err != nil {
 		return err
 	}
 	defer client.Close()
 
-	// walk a directory
+	fmt.Println("walk a directory")
 	w := client.Walk("./")
 	for w.Step() {
 		if w.Err() != nil {
@@ -57,8 +57,8 @@ func Main() error {
 		log.Println(w.Path())
 	}
 
-	// leave your mark
-	f, err := client.Create("hello.txt")
+	fmt.Println("leave your mark")
+	f, err := client.Create("./upload/hello.txt")
 	if err != nil {
 		return err
 	}
@@ -67,8 +67,8 @@ func Main() error {
 	}
 	f.Close()
 
-	// check it's there
-	fi, err := client.Lstat("hello.txt")
+	fmt.Println("check it's there")
+	fi, err := client.Lstat("./upload/hello.txt")
 	if err != nil {
 		return err
 	}
