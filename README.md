@@ -4,6 +4,7 @@ Study of SFTP on Go
 ## Reference
 * [atmoz/sftp](https://github.com/atmoz/sftp) 
 * [github.com/pkg/sftp](https://pkg.go.dev/github.com/pkg/sftp)
+* [golang.org/x/crypto/ssh](https://pkg.go.dev/golang.org/x/crypto/ssh)
 
 ## Install
 @local machine
